@@ -7,14 +7,6 @@ const Header = () => {
             <p>
                 Juan Ignacio Gidoni
             </p>
-            <a
-                className="App-link"
-                href="https://coderhouse.com"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                CoderHouse
-            </a>
         </header>
     )
 }
