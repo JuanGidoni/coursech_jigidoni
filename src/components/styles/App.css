@@ -2,6 +2,11 @@
   margin:0; padding:0;
   box-sizing: border-box;
 }
+button:focus {
+  border:none;
+  outline: none;
+}
+
 .App-logo {
   height: 5vmin;
   pointer-events: none;
@@ -28,13 +33,24 @@
   background-color: #959595;
 }
 .navbar li {
-  padding:6px;
-  border-right: 1px dotted #61dafb ;
   background-color: #959595;
   transition: ease-in-out .5s;
 }
-.navbar li:hover {
+.btn {
+  padding:12px;
+  border:none;
+  background-color: #959595;
+  color:white;
+  transition: ease-in-out .5s;
+  box-shadow: none;
+  display:flex;
+  flex: 0 1;
+  align-items: center;
+  justify-content: center;
+}
+.btn:hover {
   background-color: #191c24;
   transition: ease-in-out .5s;
-  cursor:pointer;
+  cursor:pointer;border-right: 1px dotted #61dafb ;
 }
+

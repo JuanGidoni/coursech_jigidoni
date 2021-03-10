@@ -1,25 +1,28 @@
 import React from 'react'
+import Home from '../Pages/Home'
+import Shop from '../Pages/Shop'
+import Cart from '../Pages/Cart'
 
-export const Inicio = ({index}) => {
+const Inicio = (props) => {
     return (
-        <div>
-            - Inicio ({index})
-        </div>
+        <Home props={props} />
     )
 }
 
-export const Tienda = ({index}) => {
+const Tienda = (props) => {
     return (
-        <div>
-            - Tienda ({index})
-        </div>
+        <Shop cart={props.cart} setCart={props.setCart} total={props.total} setTotal={props.setTotal} products={props.products} className="flex"/>
     )
 }
 
-export const Carrito = ({index}) => {
+const Carrito = (props) => {
     return (
-        <div>
-            - Carrito ({index})
-        </div>
+        <Cart cart={props.cart} setCart={props.setCart} total={props.total} setTotal={props.setTotal} />
     )
 }
+
+export {
+    Inicio,
+    Tienda,
+    Carrito
+  }
