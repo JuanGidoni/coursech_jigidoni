@@ -9,15 +9,19 @@ const Inicio = (props) => {
     )
 }
 
-const Tienda = (props) => {
+const Tienda = ({
+    cart, setCart, total, setTotal, products,
+}) => {
     return (
-        <Shop cart={props.cart} setCart={props.setCart} total={props.total} setTotal={props.setTotal} products={props.products} className="flex"/>
+        <Shop cart={cart} setCart={setCart} total={total} setTotal={setTotal} products={products} className="flex"/>
     )
 }
 
-const Carrito = (props) => {
+const Carrito = ({
+    cart, setCart, total, setTotal,
+}) => {
     return (
-        <Cart cart={props.cart} setCart={props.setCart} total={props.total} setTotal={props.setTotal} />
+        <Cart cart={cart} setCart={setCart} total={total} setTotal={setTotal} />
     )
 }
 

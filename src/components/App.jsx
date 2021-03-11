@@ -42,11 +42,11 @@ function App() {
       <Header />
       <Navbar goTo={goTo} cart={cart} />
       {page === 1 ? (
-        <Inicio />
+        <Carrito cart={cart} setCart={setCart} total={total} setTotal={setTotal} />
       ) : page === 2 ? (
         <Tienda cart={cart} setCart={setCart} total={total} setTotal={setTotal} products={products} />
       ) : (
-        <Carrito cart={cart} setCart={setCart} total={total} setTotal={setTotal} />
+        <Inicio />
       )}
     </div>
   );

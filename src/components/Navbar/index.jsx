@@ -6,7 +6,7 @@ const Navbar = ({goTo, cart}) => {
         <nav>
             <ul className="navbar">
                 <li>
-                    <Link goTo={goTo} page={1} className="btn" type="pagination">
+                    <Link goTo={goTo} page={3} className="btn" type="pagination">
                         Inicio
                     </Link>
                 </li>
@@ -16,7 +16,7 @@ const Navbar = ({goTo, cart}) => {
                     </Link>
                 </li>
                 <li>
-                    <Link goTo={goTo} page={3} className="btn" type="pagination">
+                    <Link goTo={goTo} page={1} className="btn" type="pagination">
                     Carrito {cart && cart.length} <FaCartPlus />
                     </Link>
                 </li>

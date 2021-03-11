@@ -1,17 +1,20 @@
 import React from 'react'
 import Card from '../../Card'
-const Shop = (props) => {
+const Shop = ({
+    cart, setCart, total, setTotal, products, className
+}) => {
     return (
-        <div className={props.className}>
-            {props.products && props.products.length > 0 ? props.products.map((v,i) => (
+        <div className={className}>
+            {products && products.length > 0 ? products.map((v,i) => (
                 <Card key={i}
-                cart={props.cart} 
-                setCart={props.setCart} 
+                image={v.img}
+                cart={cart} 
+                setCart={setCart} 
                 price={v.price} 
                 title={v.title}
                 description={v.description}
-                total={props.total}
-                setTotal={props.setTotal}
+                total={total}
+                setTotal={setTotal}
                 />
             )) : 'Lista de productos vacia.'
         }
