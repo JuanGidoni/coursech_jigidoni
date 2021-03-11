@@ -20,7 +20,7 @@ const Card = ({
         {Image ? (
                     <img src={Image} alt={title} title={title} className="fluid" />
                 ) : (
-                    <p class="muted">No Picture</p>
+                    <p className="muted">No Picture</p>
                 )}
         <h2>{title}</h2>
         <p className="price">{price}</p>
