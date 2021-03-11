@@ -14,7 +14,7 @@ const Card = ({
     setTotal
 }) => {
 
-    const Image = image ? image : ''
+    const Image = image ? image : null
     return (                
         <div className="card">
         {Image ? (
