@@ -22,20 +22,6 @@ button:focus {
 .App-header p {
   color:white;
 }
-.navbar {
-  color:#61dafb;
-  text-decoration: none;
-  list-style: none;
-  display:flex;
-  flex: 0 1;
-  align-items: center;
-  justify-content: center;
-  background-color: #959595;
-}
-.navbar li {
-  background-color: #959595;
-  transition: ease-in-out .5s;
-}
 .btn {
   padding:12px;
   border:none;
@@ -52,5 +38,6 @@ button:focus {
   background-color: #191c24;
   transition: ease-in-out .5s;
   cursor:pointer;border-right: 1px dotted #61dafb ;
+  color: #61dafb !important;
 }
 

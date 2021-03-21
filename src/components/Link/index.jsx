@@ -11,7 +11,8 @@ const Link = (props) => {
         <button onClick={() => {
             props.setCart([
             ...props.cart, props.itemCart
-            ])
+            ]);
+            props.setTotal(props.total+props.itemCart.price)
         }} className={props.className}>
             $ {props.children}
         </button>

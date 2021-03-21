@@ -1,29 +1,34 @@
 .flex {
-	padding:16px;
+	padding: 16px;
 	display: flex;
-	flex:0 1;
+	flex: 0 1;
 	align-items: center;
 	justify-content: center;
 }
+
 .cart {
-	margin-top:2em;
-	padding-top:1em;
+	margin-top: 2em;
+	padding-top: 1em;
 }
+
 .cart li {
 	list-style: none;
-	padding:1em;
+	padding: 1em;
 	border-bottom: 1px solid rgb(235, 114, 154);
 }
+
 .cart li:nth-last-child(2) {
 	border-bottom: none !important;
 }
+
 .cart .total {
 	background: #61dafb;
-	color:#393939;
-	padding:1em;
-	width:100%;
-	font-size:1.5em;
+	color: #393939;
+	padding: 1em;
+	width: 100%;
+	font-size: 1.5em;
 }
+
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	max-width: 300px;
@@ -34,18 +39,18 @@
 	justify-content: center;
 	text-align: center;
 	font-family: arial;
-  }
-  
-  .price {
+}
+
+.price {
 	color: grey;
 	font-size: 22px;
-	padding:10px;
-  }
-  
-  .card button {
+	padding: 10px;
+}
+
+.card button {
 	border: none;
 	outline: 0;
-	margin-top:1em;
+	margin-top: 1em;
 	padding: 12px;
 	color: white;
 	background-color: #000;
@@ -53,15 +58,17 @@
 	cursor: pointer;
 	width: 100%;
 	font-size: 18px;
-  }
-  
-  .card button:hover {
+}
+
+.card button:hover {
 	opacity: 0.7;
-  }
-  .card .fluid {
-	  width:100%;
-	  height: auto;
-  }
+}
+
+.card .fluid {
+	width: 100%;
+	height: auto;
+}
+
 .muted {
-	color:#c9c9c9;
+	color: #c9c9c9;
 }

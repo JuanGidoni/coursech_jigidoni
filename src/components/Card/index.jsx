@@ -15,28 +15,28 @@ const Card = ({
 }) => {
 
     const Image = image ? image : null
-    return (                
+    return (
         <div className="card">
-        {Image ? (
-                    <img src={Image} alt={title} title={title} className="fluid" />
-                ) : (
-                    <p className="muted">No Picture</p>
-                )}
-        <h2>{title}</h2>
-        <p className="price">{price}</p>
-        <p>{description}</p>
+            {Image ? (
+                <img src={Image} alt={title} title={title} className="fluid" />
+            ) : (
+                <p className="muted">No Picture</p>
+            )}
+            <h2>{title}</h2>
+            <p className="price">{price}</p>
+            <p>{description}</p>
             <Link type="addcart" cart={cart} setCart={setCart} itemCart={{
-                    'title': title,
-                    'description': description,
-                    'price': price
-                }}>
+                'title': title,
+                'description': description,
+                'price': price
+            }} setTotal={setTotal} total={total}>
                 {price}
             </Link>
         </div>
     )
 }
 
-Card.propTypes  = {
+Card.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
