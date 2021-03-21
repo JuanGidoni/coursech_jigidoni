@@ -2,6 +2,14 @@
 
 This repository is used for learning purposes. Currently studying at CoderHouse: React JS
 
+To run this project use:
+
+`yarn install `
+
+then...
+
+`yarn start `
+
 ### Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
