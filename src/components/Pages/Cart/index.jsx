@@ -3,7 +3,6 @@ import React from 'react'
 const Cart = ({
     cart, setCart, total, setTotal
 }) => {
-    let newTotal = 0
     return (
         <div className="card cart">
             Tu carrito: 
@@ -11,13 +10,12 @@ const Cart = ({
             {
                 cart && cart.length > 0 ? (
                     cart.map((v,i) => {
-                        newTotal += total+v.price
                         return <li key={i} >{v.title} | $ {v.price} </li>
                     })
-                ) : <li> Tu carrito esta vació. </li> 
+                ) : <li> Sin productos en el carrito. </li> 
 
             }
-            <p className="total">Total: $ {newTotal}</p>
+            <p className="total">Total: $ {total}</p>
         </div>
     )
 }

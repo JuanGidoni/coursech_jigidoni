@@ -84,18 +84,14 @@ const App = () => {
           <Switch>
             <Route
               exact
-              path='/'
-              render={(props) => (
-                <Shop {...props} products={products} cart={cart} total={total} setCart={setCart} setTotal={setTotal} filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts} />
-              )}
-            />
+              path='/'>
+              <Shop products={products} cart={cart} total={total} setCart={setCart} setTotal={setTotal} filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts} />
+            </Route>
             <Route
               exact
-              path='/cart'
-              render={(props) => (
-                <Cart {...props} products={products} cart={cart} total={total} setCart={setCart} setTotal={setTotal} />
-              )}
-            />
+              path='/cart'>
+              <Cart products={products} cart={cart} total={total} setCart={setCart} setTotal={setTotal} />
+            </Route>
           </Switch>
         </Container>
       </Router>
