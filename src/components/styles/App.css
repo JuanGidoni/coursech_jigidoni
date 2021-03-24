@@ -40,4 +40,6 @@ button:focus {
   cursor:pointer;border-right: 1px dotted #61dafb ;
   color: #61dafb !important;
 }
-
+.item-img {
+  max-width:120px;
+}

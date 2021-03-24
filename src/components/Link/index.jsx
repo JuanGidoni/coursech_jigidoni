@@ -13,8 +13,10 @@ const Link = (props) => {
             ...props.cart, props.itemCart
             ]);
             props.setTotal(props.total+props.itemCart.price)
+            props.setFilteredProducts([])
+            props.setStatus('Item agregado al carrito...')
         }} className={props.className}>
-            $ {props.children}
+            {props.children}
         </button>
         ): (
         <button onClick={() => props.goTo(props.page)} className={props.className}>

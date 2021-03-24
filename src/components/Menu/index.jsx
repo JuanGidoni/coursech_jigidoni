@@ -36,16 +36,18 @@ const Menu = ({ cart, logo, total, products, filteredProducts, setFilteredProduc
     return (
         <div className="pb-5">
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">
+                <Navbar>
+                    <Link to='/' className='navbar-brand'>
                     <img
                         src={logo}
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
                         alt="React Logo, Juan Ignacio Gidoni"
-                    />
+                        />
                     Juan Ignacio Gidoni
-                </Navbar.Brand>
+                    </Link>
+                </Navbar>
                 <Nav className="ml-auto">
                     <Link to="/" className="nav-link">Home</Link>
                 </Nav>
