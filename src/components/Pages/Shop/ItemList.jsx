@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Row, Col } from 'react-bootstrap'
 import ItemContainer from './ItemContainer'
 
-const ItemList = ({ cart, setProducts, setCart, total, setTotal, products, className, filteredProducts, setFilteredProducts, status, setStatus }) => {
+const ItemList = ({ cart, setProducts, setCart, total, setTotal, products, className, filteredProducts, setFilteredProducts, status, setStatus, filtered, setFiltered }) => {
 
     const { itemId } = useParams();
 
@@ -18,7 +18,7 @@ const ItemList = ({ cart, setProducts, setCart, total, setTotal, products, class
             return setStatus(error)
         }
     }
-    
+
     function formatString(text, length) {
         if (text == null) {
             return "";
@@ -34,9 +34,10 @@ const ItemList = ({ cart, setProducts, setCart, total, setTotal, products, class
 
 
     useEffect(() => {
-        if(itemId)
-        MatchItem()
-        console.log('i fire in ItemList');
+        if (itemId) {
+            setFiltered(true)
+            MatchItem()
+        }
 
     }, [itemId])
 
