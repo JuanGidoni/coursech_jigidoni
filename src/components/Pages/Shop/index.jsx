@@ -6,6 +6,7 @@ import ItemContainer from './ItemContainer'
 const Shop = ({
     cart, setCart, total, setTotal, products, className, filteredProducts, setFilteredProducts, setStatus, status, setFiltered, filtered
 }) => {
+
     useEffect(() => {
         const shopItems = () => {
             if (filtered) {
@@ -15,7 +16,6 @@ const Shop = ({
                 setFiltered(true)
             }
         }
-        console.log('i fire in Shop');
         return shopItems()
     }, [])
     return (
@@ -23,8 +23,8 @@ const Shop = ({
             <Row>
                 {filteredProducts && filteredProducts.length > 0 ? filteredProducts.map((v, i) => (
                     <Col md="4" key={i}>
-                        <ItemContainer key={v.id}
-                            i={i}
+                        <ItemContainer key={i}
+                            id={v.id}
                             image={v.thumbnail}
                             cart={cart}
                             setCart={setCart}
@@ -42,8 +42,8 @@ const Shop = ({
                 )) :
                     products && products.length > 0 ? products.map((v, i) => (
                         <Col md="4" key={i}>
-                            <Card key={v.id}
-                                i={i}
+                            <Card key={i}
+                                id={v.id}
                                 image={v.thumbnail}
                                 cart={cart}
                                 setCart={setCart}

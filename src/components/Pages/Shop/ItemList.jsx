@@ -7,12 +7,10 @@ const ItemList = ({ cart, setProducts, setCart, total, setTotal, products, class
 
     const { itemId } = useParams();
 
-    let newId = parseInt(itemId)
-
     const MatchItem = async () => {
         try {
             await products.map((v, i) => (
-                newId === i ? setFilteredProducts([v]) : (false)
+                itemId === v.id ? setFilteredProducts([v]) : (false)
             ))
         } catch (error) {
             return setStatus(error)
@@ -46,8 +44,8 @@ const ItemList = ({ cart, setProducts, setCart, total, setTotal, products, class
             <Row>
                 {filteredProducts && filteredProducts.length > 0 ? filteredProducts.map((v, i) => (
                     <Col md="4" key={i}>
-                        <ItemContainer key={v.id}
-                            i={i}
+                        <ItemContainer key={i}
+                            id={v.id}
                             image={v.thumbnail}
                             cart={cart}
                             setCart={setCart}

@@ -14,7 +14,7 @@ const Card = ({
     available_quantity,
     seller,
     setTotal,
-    i
+    id
 }) => {
 
     function formatString(text, length){
@@ -32,7 +32,7 @@ const Card = ({
 
     const Image = image ? image : null
     return (
-        <Link to={`/item/${i}`} className="list-group-item list-group-item-action d-flex justify-content-between align-items-start h-100 w-100">
+        <Link to={`/item/${id}`} className="list-group-item list-group-item-action d-flex justify-content-between align-items-start h-100 w-100">
         <div className="flex-column align-items-end">
             {formatString(title, 35)} 
             <p><small>by {seller.seller_reputation.power_seller_status} seller</small></p>

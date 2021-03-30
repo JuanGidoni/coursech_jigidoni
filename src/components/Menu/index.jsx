@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { FaCartPlus, FaSearch, FaDollarSign } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, Form, Button, FormControl } from 'react-bootstrap'
+import { Navbar, Nav, Form, Button, FormControl, NavDropdown } from 'react-bootstrap'
 
-const Menu = ({ cart, logo, total, products, filteredProducts, setFilteredProducts, setStatus, status, getDataResults }) => {
+const Menu = ({ cart, logo, total, products, filteredProducts, setFilteredProducts, setStatus, status, getDataResults, cats }) => {
 
     const searchRef = useRef();
 
@@ -51,6 +51,15 @@ const Menu = ({ cart, logo, total, products, filteredProducts, setFilteredProduc
                 </Navbar>
                 <Nav className="ml-auto">
                     <Link to="/" className="nav-link">Home</Link>
+                    <NavDropdown title="Categories" id="basic-nav-dropdown">
+                        {cats && cats.length > 0 ? cats.map(
+                            (v, i) => (
+                            <Link to={`/category/${v.id}`} className="dropdown-item" key={i}>
+                                {v.name}
+                            </Link>
+                            )
+                        ) : 'No dropdown items found...'}
+                    </NavDropdown>
                 </Nav>
                 <Form inline>
                     <Link to="/cart" className="text-success text-decoration-none">
