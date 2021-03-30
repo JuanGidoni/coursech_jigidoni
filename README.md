@@ -24,3 +24,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ###### Challenge 6: Promises, asincronía y MAP ✓
 ###### Challenge 7: Consumiendo APIs / Simulación de consumo/datos en arrays y useState✓
 ###### Challenge 8: Routing y Navegación ✓
+###### Challenge 9: PreSummit of Final Test -- Added API functionality, routing of item & categories. ✓

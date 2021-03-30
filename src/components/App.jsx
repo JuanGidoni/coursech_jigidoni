@@ -97,6 +97,12 @@ const App = () => {
               path='/category/:id'>
               <Category products={products} setStatus={setStatus} setProdcuts={setProducts}  filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts} status={status} filtered={filtered} setFiltered={setFiltered}/>
             </Route>
+            
+            <Route
+            exact
+            path="*">
+              <div>Error 404, page not found.</div>
+            </Route>
 
           </Switch>
         </Container>
