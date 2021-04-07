@@ -1,29 +1,22 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Card from '../../Card'
+import { useDataContext } from '../../Context/GeneralContext'
 
-const Category = ({products, setStatus, setProducts, setFiltered, setFilteredProducts, filtered }) => {
+const Category = () => {
     const { id } = useParams()
 
+    const { products, getResultsById, setFiltered } = useDataContext()
     useEffect(() => {
-
-        const getResultsById = async (e) => {
-            try {
-                const res = await fetch(`https://api.mercadolibre.com//sites/MLA/search?category=${e}`)
-                const response = await res.json()
-                setFilteredProducts(response.results)
-            } catch (error) {
-                setStatus(error)
-            }
-        }
 
         const gCatRes = () => {
             getResultsById(id)
             setFiltered(true)
         }
         return gCatRes()
-    // eslint-disable-next-line no-sparse-arrays
-    }, [id, setFiltered, setFilteredProducts, setProducts, setStatus])
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id])
     return (
         <div>
             {

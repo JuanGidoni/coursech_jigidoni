@@ -2,12 +2,14 @@ import { useRef } from 'react'
 import { FaCartPlus, FaSearch, FaDollarSign } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
 import { Navbar, Nav, Form, Button, FormControl, NavDropdown } from 'react-bootstrap'
+import logo from '../assets/logo.svg';
+import { useDataContext } from '../Context/GeneralContext';
 
-const Menu = ({ cart, logo, total, products, filteredProducts, setFilteredProducts, setStatus, status, getDataResults, cats }) => {
+const Menu = () => {
 
     const searchRef = useRef();
 
-
+    const { cart, total, setStatus, getDataResults, categories } = useDataContext()
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -52,7 +54,7 @@ const Menu = ({ cart, logo, total, products, filteredProducts, setFilteredProduc
                 <Nav className="ml-auto">
                     <Link to="/" className="nav-link">Home</Link>
                     <NavDropdown title="Categories" id="basic-nav-dropdown">
-                        {cats && cats.length > 0 ? cats.map(
+                        {categories && categories.length > 0 ? categories.map(
                             (v, i) => (
                             <Link to={`/category/${v.id}`} className="dropdown-item" key={i}>
                                 {v.name}

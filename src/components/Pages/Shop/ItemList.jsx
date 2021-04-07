@@ -2,39 +2,21 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Row, Col } from 'react-bootstrap'
 import ItemContainer from './ItemContainer'
+import { useDataContext } from '../../Context/GeneralContext'
 
-const ItemList = ({ cart, setProducts, setCart, total, setTotal, products, className, filteredProducts, setFilteredProducts, status, setStatus, filtered, setFiltered }) => {
+const ItemList = () => {
 
     const { itemId } = useParams();
 
-    const MatchItem = async () => {
-        try {
-            await products.map((v, i) => (
-                itemId === v.id ? setFilteredProducts([v]) : (false)
-            ))
-        } catch (error) {
-            return setStatus(error)
-        }
-    }
+    const { filteredProducts, status, setFiltered, MatchItem, formatString } = useDataContext()
+    
 
-    function formatString(text, length) {
-        if (text == null) {
-            return "";
-        }
-        if (text.length <= length) {
-            return text;
-        }
-        text = text.substring(0, length);
-        let last = text.lastIndexOf(" ");
-        text = text.substring(0, last);
-        return text + "...";
-    }
 
 
     useEffect(() => {
         if (itemId) {
             setFiltered(true)
-            MatchItem()
+            MatchItem(itemId)
         }
 
     }, [itemId])
@@ -47,20 +29,13 @@ const ItemList = ({ cart, setProducts, setCart, total, setTotal, products, class
                         <ItemContainer key={i}
                             id={v.id}
                             image={v.thumbnail}
-                            cart={cart}
-                            setCart={setCart}
                             available_quantity={v.available_quantity}
                             price={v.price}
                             title={formatString(v.title, 35)}
-                            total={total}
                             seller={v.seller}
-                            setTotal={setTotal}
-                            setFilteredProducts={setFilteredProducts}
-                            status={status}
-                            setStatus={setStatus}
                         />
                     </Col>
-                )) : status
+                )) : status.message
                 }
             </Row>
         </div>

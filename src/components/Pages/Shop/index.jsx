@@ -1,13 +1,25 @@
 import { useEffect } from 'react'
 import Card from '../../Card'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Alert } from 'react-bootstrap'
 import ItemContainer from './ItemContainer'
+import { useDataContext } from '../../Context/GeneralContext'
 
-const Shop = ({
-    cart, setCart, total, setTotal, products, className, filteredProducts, setFilteredProducts, setStatus, status, setFiltered, filtered
-}) => {
+const Shop = () => {
+    const {
+        cart,
+        setCart,
+        total,
+        setTotal,
+        products,
+        filtered,
+        filteredProducts,
+        setFiltered,
+        setFilteredProducts,
+        status,
+        setStatus } = useDataContext()
 
     useEffect(() => {
+
         const shopItems = () => {
             if (filtered) {
                 setFilteredProducts([])
@@ -17,6 +29,7 @@ const Shop = ({
             }
         }
         return shopItems()
+
     }, [])
     return (
         <div className="list-group">

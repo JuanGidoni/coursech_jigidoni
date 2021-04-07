@@ -1,25 +1,23 @@
 import React from 'react'
+import { useDataContext } from '../Context/GeneralContext';
 
 const Link = (props) => {
+
+    const { addToCart, handleRemoveItem } = useDataContext()
     return (
         <>
-            { props.type === 'pagination' ? (
-                <button onClick={() => props.goTo(props.page)} className={props.className}>
-                    {props.children}
-                </button>
-            ) : props.type === 'addcart' ? (
+            { props.btnType === 'addcart' ? (
                 <button onClick={() => {
-                    props.setCart([
-                        ...props.cart, props.itemCart
-                    ]);
-                    props.setTotal(props.total + props.itemCart.price)
-                    props.setStatus('Item agregado al carrito...')
-                    props.setFilteredProducts([])
+                    addToCart(props.itemCart)
                 }} className={props.className}>
                     {props.children}
                 </button>
+            ) : props.btnType === 'removeItem' ? (
+                <button onClick={() => handleRemoveItem(props.product)} className={props.className}>
+                    {props.children}
+                </button>
             ) : (
-                <button onClick={() => props.goTo(props.page)} className={props.className}>
+                <button onClick={() => props.onClick} className={props.className}>
                     {props.children}
                 </button>
             )}

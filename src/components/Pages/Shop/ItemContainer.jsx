@@ -3,10 +3,11 @@ import Link from '../../Link'
 const ItemContainer = (props) => {
     const Image = props.image ? props.image : null
     return (
-        <Link type="addcart" cart={props.cart} setCart={props.setCart} itemCart={{
+        <Link btnType="addcart" itemCart={{
             'title': props.title,
+            'id': props.id,
             'price': props.price
-        }} setTotal={props.setTotal} setStatus={props.setStatus} setFilteredProducts={props.setFilteredProducts} total={props.total} className="list-group-item list-group-item-action d-flex justify-content-between align-items-start h-100 w-100">
+        }} className="list-group-item list-group-item-action d-flex justify-content-between align-items-start h-100 w-100">
             <div className="flex-column align-items-end">
                 {props.title}
                 <p><small>by {props.seller.seller_reputation.power_seller_status} seller</small></p>

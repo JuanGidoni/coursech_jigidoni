@@ -1,16 +1,17 @@
 import React from 'react'
+import { useDataContext } from '../../Context/GeneralContext'
+import ItemCartBox from './ItemCartBox'
 
-const Cart = ({
-    cart, setCart, total, setTotal
-}) => {
+const Cart = () => {
+    const { cart, total } = useDataContext()
     return (
-        <div className="card cart">
+        <div className="card cart col-6 offset-3">
             Tu carrito: 
             <br/>
             {
                 cart && cart.length > 0 ? (
                     cart.map((v,i) => {
-                        return <li key={i} >{v.title} | $ {v.price} </li>
+                        return <ItemCartBox key={i} price={v.price} id={v.id} product={v}> {v.title} </ItemCartBox>
                     })
                 ) : <li> Sin productos en el carrito. </li> 
 

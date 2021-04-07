@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
+import { useDataContext } from '../../Context/GeneralContext'
 
-const MultiCategory = ({ cats}) => {
+const MultiCategory = () => {
+
+    const { categories } = useDataContext()
     return (
         <div className="row w-100">
             {
-                cats && cats.length > 0 ? cats.map(
+                categories && categories.length > 0 ? categories.map(
                     (v) => (
                         <Link to={`/category/${v.id}`}>
                             {v.name}
