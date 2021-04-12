@@ -21,8 +21,11 @@ const App = () => {
         <DataProvider>
 
         <Menu />
+
         <Container>
+
         <ErrorBox />
+        
           <Switch>
             <Route
               exact

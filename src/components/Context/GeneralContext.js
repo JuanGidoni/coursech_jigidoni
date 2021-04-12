@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
+import Loader from "../Loader";
 
 const DataContext = React.createContext()
 
@@ -22,6 +23,10 @@ export function DataProvider({ children, ...props }) {
     const [categories, setCategories] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [added, setAdded] = useState(false)
+    const [qty, setQty] = useState(0)
+    const [totalItems, setTotalItems] = useState(0)
+
+    const [loading, setLoading] = useState(true)
 
 
     const handleRemoveItem = (p) => {
@@ -40,7 +45,7 @@ export function DataProvider({ children, ...props }) {
 
                 setCart(temp);
 
-                setTotal(total - p.price)
+                setTotal(total - p.price * p.qty)
 
                 setStatus({
                     state: false,
@@ -76,6 +81,7 @@ export function DataProvider({ children, ...props }) {
             const res = await fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${e}`)
             const response = await res.json()
             setProducts(response.results)
+            getCategoryResults()
         } catch (error) {
             setStatus(error)
         }
@@ -85,6 +91,7 @@ export function DataProvider({ children, ...props }) {
             const res = await fetch(`https://api.mercadolibre.com//sites/MLA/categories`)
             const response = await res.json()
             setCategories(response)
+            setLoading(false)
         } catch (error) {
             setStatus(error)
         }
@@ -95,15 +102,18 @@ export function DataProvider({ children, ...props }) {
         try {
             const res = await fetch(`https://api.mercadolibre.com//sites/MLA/search?category=${e}`)
             const response = await res.json()
-            setFilteredProducts(response.results)
+            setProducts(response.results)
+            setLoading(false)
         } catch (error) {
             setStatus(error)
         }
     }
+
     const resetStatus = (time) => {
-
         setTimeout(() => {
-
+            setLoading(false)
+        }, time - 2000);
+        setTimeout(() => {
             setStatus({
                 state: false,
                 id: null,
@@ -111,11 +121,11 @@ export function DataProvider({ children, ...props }) {
                 error: false
             })
         }, time);
-
     }
-    const addToCart = (p) => {
-        if (cart && cart.length > 0) {
 
+    const addToCart = (p) => {
+        setLoading(true)
+        if (cart && cart.length > 0) {
             const idx = cart.findIndex(v => v.id === p.id);
 
             if (idx >= 0 ? 1 : 0) {
@@ -129,18 +139,17 @@ export function DataProvider({ children, ...props }) {
                     error: true
                 })
                 resetStatus(3000)
-
             } else {
-
+                setTotalItems(totalItems+p.qty)
                 setCart([...cart, p])
-
+                setQty(p.qty)
                 setStatus({
                     state: true,
                     id: p.id,
-                    message: `Item ${p.id} added to cart +(${p.price})`,
+                    message: `Item ${p.id} added to cart +(${p.price}) x${p.qty} `,
                     error: false
                 })
-                setTotal(total + p.price)
+                setTotal(total + p.price * p.qty)
 
                 setAdded(true)
 
@@ -148,28 +157,28 @@ export function DataProvider({ children, ...props }) {
 
             }
         } else {
+            
+            setTotalItems(p.qty)
 
             setCart([...cart, p])
-
+            setQty(p.qty)
             setStatus({
                 state: true,
                 id: p.id,
-                message: `Item ${p.id} added to cart +(${p.price})`,
+                message: `Item ${p.id} added to cart +(${p.price}) x${p.qty}`,
                 error: false
             })
-            setTotal(total + p.price)
+            setTotal(total + p.price * p.qty)
             resetStatus(2000)
             setAdded(true)
         }
     }
 
-    // this arrow function works to check if a favorite exist to set the Added style to the Favorite Button or none
     const checkAddedCart = (id) => {
 
         if (cart && cart.length > 0) {
-
             const itemFound = cart.some(item => item.id === id)
-
+            
             itemFound ? setAdded(true) : setAdded(false)
 
         } else {
@@ -182,9 +191,11 @@ export function DataProvider({ children, ...props }) {
 
     const MatchItem = async (e) => {
         try {
-            await products.map((v, i) => (
+            setLoading(true)
+            products.map((v, i) => (
                 e === v.id ? setFilteredProducts([v]) : false
             ))
+
         } catch (error) {
             return setStatus(error)
         }
@@ -207,7 +218,6 @@ export function DataProvider({ children, ...props }) {
     useEffect(() => {
         const unsubscribe = () => {
             getDataResults('notebooks')
-            getCategoryResults()
         }
 
         return unsubscribe()
@@ -219,7 +229,9 @@ export function DataProvider({ children, ...props }) {
         getDataResults,
         getCategoryResults,
         checkAddedCart,
+        setLoading,
         setProducts,
+        setQty,
         setStatus,
         setAdded,
         setFiltered,
@@ -230,9 +242,13 @@ export function DataProvider({ children, ...props }) {
         getResultsById,
         MatchItem,
         formatString,
+        setTotalItems,
         handleRemoveItem,
         cart,
+        qty,
         total,
+        loading,
+        totalItems,
         filtered,
         filteredProducts,
         categories,
@@ -243,7 +259,7 @@ export function DataProvider({ children, ...props }) {
 
     return (
         <DataContext.Provider value={value} props={props}>
-            {children}
+            {loading ? <Loader /> : children}
         </DataContext.Provider>
     )
 }

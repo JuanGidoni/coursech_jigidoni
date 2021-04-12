@@ -26,3 +26,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ###### Challenge 8: Routing & Navigation ✓
 ###### Challenge 9: PreSummit of Final Test -- Added API functionality, routing of item & categories. ✓
 ###### Challenge 10: Add useContext() to the project + status message and remove from cart actions ✓
+###### Challenge 11: Rendering techniques & Cart View modifies ✓

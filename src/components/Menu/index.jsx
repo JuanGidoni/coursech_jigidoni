@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { FaCartPlus, FaSearch, FaDollarSign } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
 import { Navbar, Nav, Form, Button, FormControl, NavDropdown } from 'react-bootstrap'
@@ -9,7 +9,7 @@ const Menu = () => {
 
     const searchRef = useRef();
 
-    const { cart, total, setStatus, getDataResults, categories } = useDataContext()
+    const { cart, total, setStatus, getDataResults, categories, totalItems, setTotalItems } = useDataContext()
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -66,9 +66,7 @@ const Menu = () => {
                 <Form inline>
                     <Link to="/cart" className="text-success text-decoration-none">
                         <Button variant="outline-success mr-2" className="d-flex flex-fill">
-                            {cart && cart.length > 0 ? (
-                                `${cart.length}`
-                            ) : '0'}
+                            {totalItems}
                             <FaCartPlus className="ml-2" />
                         </Button>
                     </Link>
