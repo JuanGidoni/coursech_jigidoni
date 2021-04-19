@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react"
 import Loader from "../Loader";
-
+import { getFirestore } from '../Firebase'
 const DataContext = React.createContext()
 
 export function useDataContext() {
@@ -13,6 +13,7 @@ export function DataProvider({ children, ...props }) {
         status: false,
         id: null,
         message: null,
+        console: null,
         error: null
     })
 
@@ -78,32 +79,11 @@ export function DataProvider({ children, ...props }) {
 
     const getDataResults = async (e) => {
         try {
-            const res = await fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${e}`)
-            const response = await res.json()
-            setProducts(response.results)
-            getCategoryResults()
-        } catch (error) {
-            setStatus(error)
-        }
-    }
-    const getCategoryResults = async () => {
-        try {
-            const res = await fetch(`https://api.mercadolibre.com//sites/MLA/categories`)
-            const response = await res.json()
-            setCategories(response)
-            setLoading(false)
-        } catch (error) {
-            setStatus(error)
-        }
-    }
-
-
-    const getResultsById = async (e) => {
-        try {
-            const res = await fetch(`https://api.mercadolibre.com//sites/MLA/search?category=${e}`)
-            const response = await res.json()
-            setProducts(response.results)
-            setLoading(false)
+            products.filter(item => item.title.includes(e) ? item : false).map(
+                (v) => (
+                    setFilteredProducts(v)
+                )
+            )
         } catch (error) {
             setStatus(error)
         }
@@ -140,7 +120,7 @@ export function DataProvider({ children, ...props }) {
                 })
                 resetStatus(3000)
             } else {
-                setTotalItems(totalItems+p.qty)
+                setTotalItems(totalItems + p.qty)
                 setCart([...cart, p])
                 setQty(p.qty)
                 setStatus({
@@ -157,7 +137,7 @@ export function DataProvider({ children, ...props }) {
 
             }
         } else {
-            
+
             setTotalItems(p.qty)
 
             setCart([...cart, p])
@@ -178,7 +158,7 @@ export function DataProvider({ children, ...props }) {
 
         if (cart && cart.length > 0) {
             const itemFound = cart.some(item => item.id === id)
-            
+
             itemFound ? setAdded(true) : setAdded(false)
 
         } else {
@@ -189,12 +169,26 @@ export function DataProvider({ children, ...props }) {
 
     }
 
-    const MatchItem = async (e) => {
+    const MatchItem = async (valor, filtro) => {
         try {
-            setLoading(true)
-            products.map((v, i) => (
-                e === v.id ? setFilteredProducts([v]) : false
-            ))
+            if (filtro === 'product') {
+                products.map((v, i) => (
+                    valor === v.id && setFilteredProducts([v])
+                ))
+                setLoading(false)
+            } else if (filtro === 'categories') {
+                products.map((v, i) => (
+                    valor === v.item.categoryId && setFilteredProducts([v])
+                ))
+                setLoading(false)
+            } else {
+                setStatus({
+                    state: true,
+                    id: null,
+                    message: `Cannot match item. Error, check line 187 Context.`,
+                    error: true
+                })
+            }
 
         } catch (error) {
             return setStatus(error)
@@ -217,7 +211,61 @@ export function DataProvider({ children, ...props }) {
 
     useEffect(() => {
         const unsubscribe = () => {
-            getDataResults('notebooks')
+            setLoading(true)
+            const db = getFirestore
+
+            const categoryCollection = db.collection("categories")
+            categoryCollection.get().then(querySnapshot => {
+                if (querySnapshot.size === 0) {
+                    setStatus({
+                        state: true,
+                        id: null,
+                        message: `Categories not found or empty...`,
+                        error: true
+                    })
+                } else {
+                    setCategories(querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        item: doc.data()
+                    })))
+                }
+            }).catch((err) => {
+                setStatus({
+                    state: true,
+                    id: null,
+                    message: `Failed to fetch categories or server response 404/500`,
+                    console: err,
+                    error: true
+                })
+            })
+
+            const itemCollection = db.collection("items")
+            itemCollection.get().then(querySnapshot => {
+                if (querySnapshot.size === 0) {
+                    setStatus({
+                        state: true,
+                        id: null,
+                        message: `Items not found or empty...`,
+                        error: true
+                    })
+                } else {
+                    setProducts(querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        item: doc.data()
+                    })))
+                }
+            }).catch((err) => {
+                setStatus({
+                    state: true,
+                    id: null,
+                    message: `Failed to fetch items or server response 404/500`,
+                    console: err,
+                    error: true
+                })
+            }).finally(() => {
+                setLoading(false)
+            })
+            // getDataResults('notebooks')
         }
 
         return unsubscribe()
@@ -227,7 +275,6 @@ export function DataProvider({ children, ...props }) {
 
     const value = {
         getDataResults,
-        getCategoryResults,
         checkAddedCart,
         setLoading,
         setProducts,
@@ -239,7 +286,6 @@ export function DataProvider({ children, ...props }) {
         setCart,
         addToCart,
         setTotal,
-        getResultsById,
         MatchItem,
         formatString,
         setTotalItems,

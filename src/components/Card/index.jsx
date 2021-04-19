@@ -41,7 +41,7 @@ const Card = ({
         <div className="d-flex justify-content-center align-items-start mb-2">
           <div className="flex-column align-items-end">
             {formatString(title, 35)}
-            <p><small>by {seller.seller_reputation.power_seller_status} seller</small></p>
+            <p><small>Envio Grátis</small></p>
             <div className="d-flex justify-content-center align-items-end">
               <span className="badge badge-info badge-pill flex-fill">{available_quantity} in stock</span>
               <span className="badge badge-success badge-pill flex-fill">$ {price}</span>

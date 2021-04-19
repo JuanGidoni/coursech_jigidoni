@@ -57,7 +57,7 @@ const Menu = () => {
                         {categories && categories.length > 0 ? categories.map(
                             (v, i) => (
                             <Link to={`/category/${v.id}`} className="dropdown-item" key={i}>
-                                {v.name}
+                                {v.item.name.charAt(0).toUpperCase() + v.item.name.slice(1)}
                             </Link>
                             )
                         ) : 'No dropdown items found...'}

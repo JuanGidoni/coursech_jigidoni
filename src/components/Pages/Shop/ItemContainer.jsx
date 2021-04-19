@@ -5,10 +5,9 @@ import { FaCartPlus } from 'react-icons/fa'
 const ItemContainer = ({
     id,
     image,
-    seller,
     title,
-    available_quantity,
     price,
+    available_quantity,
     qty,
     setQty,
 }) => {
@@ -18,7 +17,7 @@ const ItemContainer = ({
             <div className="list-group-item list-group-item-action">
                 <div className="flex-column align-items-end">
                     {title}
-                    <p><small>by {seller.seller_reputation.power_seller_status} seller</small></p>
+                    <p><small>Envio Grátis</small></p>
                     <div className="d-flex justify-content-center align-items-end">
                         <span className="badge badge-info badge-pill flex-fill">{available_quantity} in stock</span>
                         <span className="badge badge-success badge-pill flex-fill">$ {price}</span>

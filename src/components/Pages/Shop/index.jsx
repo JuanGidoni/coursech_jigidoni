@@ -20,14 +20,13 @@ const Shop = () => {
                         <Col md="4" key={i}>
                             <Card key={i}
                                 id={v.id}
-                                image={v.thumbnail}
+                                image={v.item.img}
                                 cart={cart}
                                 setCart={setCart}
-                                available_quantity={v.available_quantity}
-                                price={v.price}
-                                title={v.title}
+                                available_quantity={v.item.stock}
+                                price={v.item.price}
+                                title={v.item.title}
                                 total={total}
-                                seller={v.seller}
                                 setTotal={setTotal}
                                 qty={qty}
                                 setQty={setQty}

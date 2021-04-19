@@ -17,7 +17,7 @@ const ItemList = () => {
     useEffect(() => {
         if (itemId) {
             setFiltered(true)
-            MatchItem(itemId)
+            MatchItem(itemId, 'product')
             setLoading(false)
             setQty(0)
         }
@@ -31,11 +31,10 @@ const ItemList = () => {
                     <Col md="4" key={i}>
                         <ItemContainer key={i}
                             id={v.id}
-                            image={v.thumbnail}
-                            available_quantity={v.available_quantity}
-                            price={v.price}
-                            title={formatString(v.title, 35)}
-                            seller={v.seller}
+                            image={v.item.img}
+                            available_quantity={v.item.stock}
+                            price={v.item.price}
+                            title={formatString(v.item.title, 35)}
                             qty={qty}
                             setQty={setQty}
                         />

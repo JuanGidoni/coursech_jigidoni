@@ -7,11 +7,13 @@ import { Row, Col } from 'react-bootstrap'
 const Category = () => {
     const { id } = useParams()
 
-    const { products, getResultsById, setFiltered, setCart, cart, total, setTotal, qty, setQty } = useDataContext()
+    const { filteredProducts, MatchItem, setFiltered, setCart, cart, total, setTotal, qty, setQty, categories, setLoading } = useDataContext()
     useEffect(() => {
 
         const gCatRes = () => {
-            getResultsById(id)
+            setLoading(true)
+            const itemName = categories.find(v => v.id === id.toString() ? v : false)
+            MatchItem(itemName.item.name, 'categories')
             setFiltered(true)
         }
         return gCatRes()
@@ -21,18 +23,17 @@ const Category = () => {
     return (
         <div className="list-group">
             <Row>
-                {products && products.length > 0 ? products.map((v, i) => (
+                {filteredProducts && filteredProducts.length > 0 ? filteredProducts.map((v, i) => (
                     <Col md="4" key={i}>
                         <Card key={i}
                             id={v.id}
-                            image={v.thumbnail}
+                            image={v.item.img}
                             cart={cart}
                             setCart={setCart}
-                            available_quantity={v.available_quantity}
-                            price={v.price}
-                            title={v.title}
+                            available_quantity={v.item.stock}
+                            price={v.item.price}
+                            title={v.item.title}
                             total={total}
-                            seller={v.seller}
                             setTotal={setTotal}
                             qty={qty}
                             setQty={setQty}
