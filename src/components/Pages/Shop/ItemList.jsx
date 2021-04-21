@@ -9,9 +9,27 @@ const ItemList = () => {
 
     const { itemId } = useParams();
 
-    const { filteredProducts, status, setFiltered, MatchItem, formatString, loading, setLoading, qty, setQty } = useDataContext()
-    
+    const { filteredProducts,
+        status,
+        setFiltered,
+        MatchItem,
+        formatString,
+        loading,
+        setLoading,
+        qty,
+        setAdded,
+        added,
+        cart,
+        setQty } = useDataContext()
 
+    const checkIfItemInCart = async () => {
+        if (cart && cart.length > 0) {
+            const findItem = cart.find(item => item.id === itemId);
+            return findItem ? true : false
+        } else {
+            return false
+        }
+    }
 
 
     useEffect(() => {
@@ -20,28 +38,34 @@ const ItemList = () => {
             MatchItem(itemId, 'product')
             setLoading(false)
             setQty(0)
+            checkIfItemInCart().then(
+                (res) => res ? setAdded(true) : setAdded(false)
+            ).catch(err => console.log(err))
         }
+        console.log('itemlist render')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [itemId])
 
     return (
         <div className="list-group">
-            {loading ? <Loader /> : 
-            <Row>
-                {filteredProducts && filteredProducts.length > 0 ? filteredProducts.map((v, i) => (
-                    <Col md="4" key={i}>
-                        <ItemContainer key={i}
-                            id={v.id}
-                            image={v.item.img}
-                            available_quantity={v.item.stock}
-                            price={v.item.price}
-                            title={formatString(v.item.title, 35)}
-                            qty={qty}
-                            setQty={setQty}
-                        />
-                    </Col>
-                )) : status.message
-                }
-            </Row>
+            {loading ? <Loader /> :
+                <Row>
+                    {filteredProducts && filteredProducts.length > 0 ? filteredProducts.map((v, i) => (
+                        <Col md="12" key={i}>
+                            <ItemContainer key={i}
+                                id={v.id}
+                                image={v.item.img}
+                                available_quantity={v.item.stock}
+                                price={v.item.price}
+                                title={formatString(v.item.title, 35)}
+                                qty={qty}
+                                setQty={setQty}
+                                added={added}
+                            />
+                        </Col>
+                    )) : status.message
+                    }
+                </Row>
             }
         </div>
     )

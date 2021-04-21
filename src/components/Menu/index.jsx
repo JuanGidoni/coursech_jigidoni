@@ -1,40 +1,12 @@
-import { useRef, useEffect } from 'react'
-import { FaCartPlus, FaSearch, FaDollarSign } from 'react-icons/fa';
+import { FaCartPlus, FaDollarSign, FaShoppingBag } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, Form, Button, FormControl, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap'
 import logo from '../assets/logo.svg';
 import { useDataContext } from '../Context/GeneralContext';
 
 const Menu = () => {
 
-    const searchRef = useRef();
-
-    const { cart, total, setStatus, getDataResults, categories, totalItems, setTotalItems } = useDataContext()
-
-    const handleKeyDown = (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault()
-            searchItem(searchRef.current.value)
-        }
-    }
-    const handleClickSearch = () => {
-        searchItem(searchRef.current.value)
-    }
-
-    const searchItem = async (e) => {
-        try {
-            await getDataResults(e).then(
-                () => {
-                    searchRef.current.value = ''
-                    searchRef.current.placeholder = `Busqueda realizada: ${e}`
-                    searchRef.current.className = 'mr-sm-2 form-control border-success bg-dark text-success'
-                    setStatus(`Busqueda realizada: ${e}`)
-                }
-            )
-        } catch (error) {
-            setStatus(error)
-        }
-    }
+    const { total, categories, totalItems} = useDataContext()
 
     return (
         <div className="pb-5">
@@ -53,7 +25,7 @@ const Menu = () => {
                 </Navbar>
                 <Nav className="ml-auto">
                     <Link to="/" className="nav-link">Home</Link>
-                    <NavDropdown title="Categories" id="basic-nav-dropdown">
+                    <NavDropdown title="Categories" id="basic-nav-dropdown" className="mr-2">
                         {categories && categories.length > 0 ? categories.map(
                             (v, i) => (
                             <Link to={`/category/${v.id}`} className="dropdown-item" key={i}>
@@ -62,8 +34,12 @@ const Menu = () => {
                             )
                         ) : 'No dropdown items found...'}
                     </NavDropdown>
-                </Nav>
-                <Form inline>
+                    <Link to="/orders" className="text-success text-decoration-none">
+                        <Button variant="outline-success mr-2" className="d-flex flex-fill">
+                            Orders
+                            <FaShoppingBag className="ml-2" />
+                        </Button>
+                    </Link>
                     <Link to="/cart" className="text-success text-decoration-none">
                         <Button variant="outline-success mr-2" className="d-flex flex-fill">
                             {totalItems}
@@ -71,13 +47,11 @@ const Menu = () => {
                         </Button>
                     </Link>
 
-                    <Button disabled variant="outline-success mr-2" className="d-flex flex-fill">
+                    <Button disabled variant="none mr-2" className="d-flex flex-fill text-white">
                         {total}
                         <FaDollarSign className="ml-2" />
                     </Button>
-                    <FormControl type="text" placeholder="Search Products.." className="mr-sm-2" ref={searchRef} onKeyDown={(e) => handleKeyDown(e)} />
-                    <Button variant="outline-info" onClick={handleClickSearch}><FaSearch /></Button>
-                </Form>
+                </Nav>
             </Navbar>
         </div>
     )

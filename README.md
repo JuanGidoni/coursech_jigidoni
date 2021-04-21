@@ -1,4 +1,4 @@
-## coursech_jigidoni
+# coursech_jigidoni 📚
 
 This repository is used for learning purposes. Currently studying at CoderHouse: React JS
 
@@ -14,7 +14,7 @@ then...
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-##### Challenges List
+##### Challenges List (See commit list [here](https://github.com/JuanGidoni/coursech_jigidoni/commits/master))
 
 ###### Challenge 1: Install React ✓
 ###### Challenge 2: Configure React Initial Steps and a simple Navbar ✓
@@ -28,3 +28,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ###### Challenge 10: Add useContext() to the project + status message and remove from cart actions ✓
 ###### Challenge 11: Rendering techniques & Cart View modifies ✓
 ###### Challenge 12: Starting using Firebase ✓
+###### Challenge 13: Using Firebase (get collections, update and add items) ✓
+###### Challenge 14: Final ✓

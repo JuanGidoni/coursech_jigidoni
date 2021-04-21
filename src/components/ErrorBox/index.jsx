@@ -1,4 +1,3 @@
-import React from 'react'
 import { useDataContext } from '../Context/GeneralContext'
 import { Alert } from 'react-bootstrap'
 

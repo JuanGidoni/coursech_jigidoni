@@ -24,7 +24,7 @@ const Shop = () => {
                                 cart={cart}
                                 setCart={setCart}
                                 available_quantity={v.item.stock}
-                                price={v.item.price}
+                                price={parseInt(v.item.price)}
                                 title={v.item.title}
                                 total={total}
                                 setTotal={setTotal}

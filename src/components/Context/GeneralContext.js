@@ -22,10 +22,14 @@ export function DataProvider({ children, ...props }) {
     const [filtered, setFiltered] = useState(false)
     const [products, setProducts] = useState([])
     const [categories, setCategories] = useState([])
+    const [orders, setOrders] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [added, setAdded] = useState(false)
     const [qty, setQty] = useState(0)
     const [totalItems, setTotalItems] = useState(0)
+    const [founded, setFounded] = useState(false)
+    const [localOrder, setLocalOrder] = useState([])
+
 
     const [loading, setLoading] = useState(true)
 
@@ -170,6 +174,7 @@ export function DataProvider({ children, ...props }) {
     }
 
     const MatchItem = async (valor, filtro) => {
+        setLoading(true)
         try {
             if (filtro === 'product') {
                 products.map((v, i) => (
@@ -192,6 +197,30 @@ export function DataProvider({ children, ...props }) {
 
         } catch (error) {
             return setStatus(error)
+        }
+    }
+
+
+    const MatchOrder = async (i) => {
+        setLoading(true)
+        try {
+            const idOrder = orders && orders.find(item => item.id === i)
+            if (idOrder) {
+                setFounded(true)
+                setLocalOrder([idOrder])
+                setLoading(false)
+            } else {
+                setFounded(false)
+                setLocalOrder([])
+                setLoading(false)
+            }
+        } catch (error) {
+            setStatus({
+                state: true,
+                id: null,
+                message: `Cannot match item. Error, check line 221 Context.`,
+                error: true
+            })
         }
     }
 
@@ -265,7 +294,34 @@ export function DataProvider({ children, ...props }) {
             }).finally(() => {
                 setLoading(false)
             })
-            // getDataResults('notebooks')
+
+            const orderCollection = db.collection("orders")
+            orderCollection.get().then(querySnapshot => {
+                if (querySnapshot.size === 0) {
+                    setStatus({
+                        state: true,
+                        id: null,
+                        message: `Not orders found`,
+                        error: true
+                    })
+                    setOrders([])
+                } else {
+                    setOrders(...orders, querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        order: doc.data()
+                    })))
+                }
+            }).catch((err) => {
+                setStatus({
+                    state: true,
+                    id: null,
+                    message: `Failed to fetch orders or server response 404/500`,
+                    console: err,
+                    error: true
+                })
+            }).finally(() => {
+                setLoading(false)
+            })
         }
 
         return unsubscribe()
@@ -276,6 +332,7 @@ export function DataProvider({ children, ...props }) {
     const value = {
         getDataResults,
         checkAddedCart,
+        MatchOrder,
         setLoading,
         setProducts,
         setQty,
@@ -290,6 +347,11 @@ export function DataProvider({ children, ...props }) {
         formatString,
         setTotalItems,
         handleRemoveItem,
+        setOrders,
+        setLocalOrder,
+        setFounded,
+        localOrder,
+        founded,
         cart,
         qty,
         total,
@@ -301,6 +363,7 @@ export function DataProvider({ children, ...props }) {
         added,
         status,
         products,
+        orders
     }
 
     return (
