@@ -4,15 +4,29 @@ This repository is used for learning purposes. Currently studying at CoderHouse:
 
 To run this project use:
 
-`yarn install `
+`yarn install` or `npm install`
 
 then...
 
-`yarn start `
+`yarn start` or `npm start`
 
-### Getting Started with Create React App
+### Package used in this project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "bootstrap": "^4.6.0",
+    "firebase": "^8.4.1",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.5.2",
+    "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
+```
+
 
 ##### Challenges List (See commit list [here](https://github.com/JuanGidoni/coursech_jigidoni/commits/master))
 
@@ -30,3 +44,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ###### Challenge 12: Starting using Firebase ✓
 ###### Challenge 13: Using Firebase (get collections, update and add items) ✓
 ###### Challenge 14: Final ✓
+
+##### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
