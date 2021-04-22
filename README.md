@@ -55,4 +55,17 @@ then...
 ###### Challenge 13: Using Firebase (get collections, update and add items) ✓
 ###### Challenge 14: Final ✓
 
+
+### What you can do in this project?
+
+- View `product list`
+- View products by `category`
+- View `total orders` in the navbar
+- View how many `items` you have in your cart (aplying quantity) in the navbar
+- View `total` price in the navbar
+- Each product have: `Image, Title, Shipping, Stock & Price`. (and ID)
+- You can `add` products by `quantity` to the Cart and `finish the order` (checkout page)
+- You can `remove` products from the cart (checkout page)
+- You can view a `all` orders list (because in this version we don't have a user system)
+
 ##### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
