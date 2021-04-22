@@ -6,6 +6,12 @@ This repository is used for learning purposes. Currently studying at CoderHouse:
 #### Deployed with Netlify
 - [CoderHouse JuanGidoni Final Project](https://coder-gidoni.netlify.app)
 
+[![Live preview](https://i.gyazo.com/0bd7f919e31475fd025c67026da53047.png)](https://coder-gidoni.netlify.app/)
+
+#### Video examples
+- [Adding product to the cart](https://i.gyazo.com/1aad62beb7a1c7982051250d1f914cc9.mp4)
+- [Creating the order](https://i.gyazo.com/b738067c535289ecf241e3d5b6522f0b.mp4)
+- [Filtering by category & orders list](https://i.gyazo.com/8ca917c97dcae2e513e1d2d3c2f0b44a.mp4)
 
 To run this project use:
 
