@@ -36,13 +36,13 @@ const Menu = () => {
                                 )
                             ) : 'No dropdown items found...'}
                         </NavDropdown>
-                        <Link to="/orders" className="text-success text-decoration-none">
+                        <Link to="/orders" className="text-success text-decoration-none mr-0 mr-1">
                             <Button variant="outline-success mr-2" className="d-flex flex-fill w-100 w-md-auto mb-2 mb-md-0">
                                 {states.orders && states.orders.length}
                             <FaShoppingBag className="ml-2" />
                             </Button>
                         </Link>
-                        <Link to="/cart" className="text-success text-decoration-none">
+                        <Link to="/cart" className="text-success text-decoration-none mr-0 mr-1">
                             <Button variant="outline-success mr-2" className="d-flex flex-fill w-100 w-md-auto mb-2 mb-md-0">
                                 {states.totalItems}
                                 <FaCartPlus className="ml-2" />

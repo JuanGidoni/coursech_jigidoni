@@ -2,6 +2,11 @@
 
 This repository is used for learning purposes. Currently studying at CoderHouse: React JS
 
+### Live Preview 
+#### Deployed with Netlify
+- [CoderHouse JuanGidoni Final Project](https://coder-gidoni.netlify.app)
+
+
 To run this project use:
 
 `yarn install` or `npm install`
@@ -26,7 +31,6 @@ then...
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
 ```
-
 
 ##### Challenges List (See commit list [here](https://github.com/JuanGidoni/coursech_jigidoni/commits/master))
 

@@ -30,27 +30,6 @@ button:focus {
   color: white;
 }
 
-.btn {
-  padding: 12px;
-  border: none;
-  background-color: #959595;
-  color: white;
-  transition: ease-in-out .5s;
-  box-shadow: none;
-  display: flex;
-  flex: 0 1;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn:hover {
-  background-color: #191c24;
-  transition: ease-in-out .5s;
-  cursor: pointer;
-  border-right: 1px dotted #61dafb;
-  color: #61dafb !important;
-}
-
 .item-img {
   max-width: 120px;
   max-height: 120px;
