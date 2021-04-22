@@ -13,6 +13,7 @@ import ErrorBox from './ErrorBox'
 import './styles/App.css'
 import OrderList from './Pages/Orders'
 import Order from './Pages/Orders/Order'
+import Footer from './Footer'
 
 const App = () => {
 
@@ -24,7 +25,7 @@ const App = () => {
 
           <Menu />
 
-          <Container>
+          <Container className="content">
 
             <ErrorBox />
 
@@ -79,6 +80,8 @@ const App = () => {
 
             </Switch>
           </Container>
+          
+          <Footer />
 
         </DataProvider>
       </Router>

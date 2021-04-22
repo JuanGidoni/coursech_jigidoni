@@ -51,11 +51,12 @@ const ItemList = () => {
             {loading ? <Loader /> :
                 <Row>
                     {filteredProducts && filteredProducts.length > 0 ? filteredProducts.map((v, i) => (
-                        <Col md="12" key={i}>
+                        <Col md="12" key={i} className="mb-3 p-1">
                             <ItemContainer key={i}
                                 id={v.id}
                                 image={v.item.img}
                                 available_quantity={v.item.stock}
+                                free_shipping={v.item.free_shipping}
                                 price={v.item.price}
                                 title={formatString(v.item.title, 35)}
                                 qty={qty}

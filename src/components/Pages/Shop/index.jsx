@@ -17,7 +17,7 @@ const Shop = () => {
         <div className="list-group">
             <Row>
                 {products && products.length > 0 ? products.map((v, i) => (
-                        <Col md="4" key={i}>
+                        <Col md="4" key={i} className="mb-3 p-1">
                             <Card key={i}
                                 id={v.id}
                                 image={v.item.img}
@@ -26,6 +26,7 @@ const Shop = () => {
                                 available_quantity={v.item.stock}
                                 price={parseInt(v.item.price)}
                                 title={v.item.title}
+                                free_shipping={v.item.free_shipping}
                                 total={total}
                                 setTotal={setTotal}
                                 qty={qty}

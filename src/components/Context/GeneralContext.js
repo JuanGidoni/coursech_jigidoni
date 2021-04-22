@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import Loader from "../Loader";
 import { getFirestore } from '../Firebase'
+import firebase from 'firebase/app'
 const DataContext = React.createContext()
 
 export function useDataContext() {
@@ -17,6 +18,7 @@ export function DataProvider({ children, ...props }) {
         error: null
     })
 
+    const db = getFirestore
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
     const [filtered, setFiltered] = useState(false)
@@ -24,11 +26,16 @@ export function DataProvider({ children, ...props }) {
     const [categories, setCategories] = useState([])
     const [orders, setOrders] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
+    const [filteredCategory, setFilteredCategory] = useState([])
     const [added, setAdded] = useState(false)
     const [qty, setQty] = useState(0)
     const [totalItems, setTotalItems] = useState(0)
     const [founded, setFounded] = useState(false)
     const [localOrder, setLocalOrder] = useState([])
+    const [name, setName] = useState('')
+    const [lastName, setLastname] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
 
 
     const [loading, setLoading] = useState(true)
@@ -181,12 +188,9 @@ export function DataProvider({ children, ...props }) {
                     valor === v.id && setFilteredProducts([v])
                 ))
                 setLoading(false)
-            } else if (filtro === 'categories') {
-                products.map((v, i) => (
-                    valor === v.item.categoryId && setFilteredProducts([v])
-                ))
-                setLoading(false)
-            } else {
+            }else {
+                setFilteredProducts([])
+                setFilteredCategory('')
                 setStatus({
                     state: true,
                     id: null,
@@ -237,11 +241,57 @@ export function DataProvider({ children, ...props }) {
         return text + "...";
     }
 
+    const placeOrder = (e, h) => {
+        e.preventDefault()
+        let order = {}
+        order.date = firebase.firestore.Timestamp.fromDate(new Date());
+        order.total = total
+        order.items = cart && cart.map(
+            cartItem => {
+                const id = cartItem.id
+                const title = cartItem.title
+                const price = cartItem.price
+                return { id, title, price }
+            }
+        )
+        order.buyer = { name, lastName, phone, email }
+        const orderCollection = db.collection('orders')
+        orderCollection.add(order)
+            .then(doc => {
+                setOrders([...orders, { id: doc.id, order: order }])
+                setCart([])
+                setFilteredProducts([])
+                setTotal(0)
+                setTotalItems(0)
+                h.push('/orders/' + doc.id)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            .finally((doc) => {
+                console.log('Orden terminada...')
+            })
+        const itemsToUpdate = db.collection('items').where(
+            firebase.firestore.FieldPath.documentId(), 'in', cart.map(i => i.id)
+        )
+        const batch = db.batch()
+
+        itemsToUpdate.get()
+            .then(collection => {
+                collection.docs.forEach(docSnapshot => {
+                    batch.update(docSnapshot.ref, {
+                        stock: docSnapshot.data().stock - cart.find(item => item.id === docSnapshot.id).qty
+                    })
+                })
+                batch.commit().then(res => {
+                    console.log('resultado batch', res)
+                })
+            })
+    }
 
     useEffect(() => {
         const unsubscribe = () => {
             setLoading(true)
-            const db = getFirestore
 
             const categoryCollection = db.collection("categories")
             categoryCollection.get().then(querySnapshot => {
@@ -330,9 +380,11 @@ export function DataProvider({ children, ...props }) {
     }, [])
 
     const value = {
+        placeOrder,
         getDataResults,
         checkAddedCart,
         MatchOrder,
+        setFilteredCategory,
         setLoading,
         setProducts,
         setQty,
@@ -350,8 +402,16 @@ export function DataProvider({ children, ...props }) {
         setOrders,
         setLocalOrder,
         setFounded,
+        setName,
+        setLastname,
+        setEmail,
+        setPhone,
         localOrder,
         founded,
+        name,
+        lastName,
+        phone,
+        email,
         cart,
         qty,
         total,
@@ -359,6 +419,7 @@ export function DataProvider({ children, ...props }) {
         totalItems,
         filtered,
         filteredProducts,
+        filteredCategory,
         categories,
         added,
         status,

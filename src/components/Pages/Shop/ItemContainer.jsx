@@ -9,6 +9,7 @@ const ItemContainer = ({
     title,
     price,
     available_quantity,
+    free_shipping,
     qty,
     setQty,
     added
@@ -20,15 +21,15 @@ const ItemContainer = ({
                 <div className="d-flex flex-fill h-100 align-items-center justify-content-center">
                     <div className="item-detail w-100">
                         {title}
-                        <p><small>Envio Grátis</small></p>
+                        {free_shipping ? <p>Envio Grátis</p> : <p className="small text-muted">Envio a cargo del comprador</p>}
                         <div className="d-flex w-50 justify-content-center align-items-end">
                             <span className="badge badge-info badge-pill flex-fill">{available_quantity} in stock</span>
                             <span className="badge badge-success badge-pill flex-fill">$ {price}</span>
                         </div>
                     </div>
-                    <div className="item-img">
+                    <div className="item-img w-100 text-center h-100">
                         {Image ? (
-                            <img src={Image} alt={title} title={title} className="img-fluid" />
+                            <img src={Image} alt={title} title={title} className="img-fluid h-100" />
                         ) : (
                             <p className="muted">No Picture</p>
                         )}
