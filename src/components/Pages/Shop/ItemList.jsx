@@ -9,22 +9,11 @@ const ItemList = () => {
 
     const { itemId } = useParams();
 
-    const { filteredProducts,
-        status,
-        setFiltered,
-        MatchItem,
-        formatString,
-        loading,
-        setLoading,
-        qty,
-        setAdded,
-        added,
-        cart,
-        setQty } = useDataContext()
+    const { states, functions } = useDataContext()
 
     const checkIfItemInCart = async () => {
-        if (cart && cart.length > 0) {
-            const findItem = cart.find(item => item.id === itemId);
+        if (states.cart && states.cart.length > 0) {
+            const findItem = states.cart.find(item => item.id === itemId);
             return findItem ? true : false
         } else {
             return false
@@ -34,23 +23,22 @@ const ItemList = () => {
 
     useEffect(() => {
         if (itemId) {
-            setFiltered(true)
-            MatchItem(itemId, 'product')
-            setLoading(false)
-            setQty(0)
+            functions.setFiltered(true)
+            functions.MatchItem(itemId, 'product')
+            functions.setLoading(false)
+            functions.setQty(0)
             checkIfItemInCart().then(
-                (res) => res ? setAdded(true) : setAdded(false)
+                (res) => res ? functions.setAdded(true) : functions.setAdded(false)
             ).catch(err => console.log(err))
         }
-        console.log('itemlist render')
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [itemId])
 
     return (
         <div className="list-group">
-            {loading ? <Loader /> :
+            {states.loading ? <Loader /> :
                 <Row>
-                    {filteredProducts && filteredProducts.length > 0 ? filteredProducts.map((v, i) => (
+                    {states.filteredProducts && states.filteredProducts.length > 0 ? states.filteredProducts.map((v, i) => (
                         <Col md="12" key={i} className="mb-3 p-1">
                             <ItemContainer key={i}
                                 id={v.id}
@@ -58,13 +46,13 @@ const ItemList = () => {
                                 available_quantity={v.item.stock}
                                 free_shipping={v.item.free_shipping}
                                 price={v.item.price}
-                                title={formatString(v.item.title, 35)}
-                                qty={qty}
-                                setQty={setQty}
-                                added={added}
+                                title={functions.formatString(v.item.title, 35)}
+                                qty={states.qty}
+                                setQty={functions.setQty}
+                                added={states.added}
                             />
                         </Col>
-                    )) : status.message
+                    )) : states.status.message
                     }
                 </Row>
             }

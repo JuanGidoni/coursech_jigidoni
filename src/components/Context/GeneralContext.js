@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import Loader from "../Loader";
-import { getFirestore } from '../Firebase'
-import firebase from 'firebase/app'
+import { getFirebase, getFirestore } from '../Firebase'
+
 const DataContext = React.createContext()
 
 export function useDataContext() {
@@ -19,7 +19,10 @@ export function DataProvider({ children, ...props }) {
     })
 
     const db = getFirestore
-    const [cart, setCart] = useState([]);
+    const fb = getFirebase
+    const batch = db.batch()
+
+    const [cart, setCart] = useState([])
     const [total, setTotal] = useState(0);
     const [filtered, setFiltered] = useState(false)
     const [products, setProducts] = useState([])
@@ -36,6 +39,7 @@ export function DataProvider({ children, ...props }) {
     const [lastName, setLastname] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
+    const [orderFound, setOrderFound] = useState([])
 
 
     const [loading, setLoading] = useState(true)
@@ -244,7 +248,7 @@ export function DataProvider({ children, ...props }) {
     const placeOrder = (e, h) => {
         e.preventDefault()
         let order = {}
-        order.date = firebase.firestore.Timestamp.fromDate(new Date());
+        order.date = fb.firestore.Timestamp.fromDate(new Date());
         order.total = total
         order.items = cart && cart.map(
             cartItem => {
@@ -272,20 +276,18 @@ export function DataProvider({ children, ...props }) {
                 console.log('Orden terminada...')
             })
         const itemsToUpdate = db.collection('items').where(
-            firebase.firestore.FieldPath.documentId(), 'in', cart.map(i => i.id)
+            fb.firestore.FieldPath.documentId(), 'in', cart.map(i => i.id)
         )
-        const batch = db.batch()
 
         itemsToUpdate.get()
             .then(collection => {
                 collection.docs.forEach(docSnapshot => {
-                    batch.update(docSnapshot.ref, {
+                batch.update(docSnapshot.ref, {
                         stock: docSnapshot.data().stock - cart.find(item => item.id === docSnapshot.id).qty
                     })
                 })
-                batch.commit().then(res => {
-                    console.log('resultado batch', res)
-                })
+                batch.commit().then(res => console.log('resultado batch', res)
+                ).catch(err => console.log(err))
             })
     }
 
@@ -380,51 +382,57 @@ export function DataProvider({ children, ...props }) {
     }, [])
 
     const value = {
-        placeOrder,
-        getDataResults,
-        checkAddedCart,
-        MatchOrder,
-        setFilteredCategory,
-        setLoading,
-        setProducts,
-        setQty,
-        setStatus,
-        setAdded,
-        setFiltered,
-        setFilteredProducts,
-        setCart,
-        addToCart,
-        setTotal,
-        MatchItem,
-        formatString,
-        setTotalItems,
-        handleRemoveItem,
-        setOrders,
-        setLocalOrder,
-        setFounded,
-        setName,
-        setLastname,
-        setEmail,
-        setPhone,
-        localOrder,
-        founded,
-        name,
-        lastName,
-        phone,
-        email,
-        cart,
-        qty,
-        total,
-        loading,
-        totalItems,
-        filtered,
-        filteredProducts,
-        filteredCategory,
-        categories,
-        added,
-        status,
-        products,
-        orders
+        functions: {
+            placeOrder,
+            getDataResults,
+            checkAddedCart,
+            MatchOrder,
+            setFilteredCategory,
+            setLoading,
+            setProducts,
+            setQty,
+            setStatus,
+            setAdded,
+            setFiltered,
+            setFilteredProducts,
+            setCart,
+            addToCart,
+            setTotal,
+            MatchItem,
+            formatString,
+            setTotalItems,
+            handleRemoveItem,
+            setOrders,
+            setLocalOrder,
+            setOrderFound,
+            setFounded,
+            setName,
+            setLastname,
+            setEmail,
+            setPhone,
+        },
+        states: {
+            localOrder,
+            founded,
+            name,
+            orderFound,
+            lastName,
+            phone,
+            email,
+            cart,
+            qty,
+            total,
+            loading,
+            totalItems,
+            filtered,
+            filteredProducts,
+            filteredCategory,
+            categories,
+            added,
+            status,
+            products,
+            orders
+        }
     }
 
     return (

@@ -2,17 +2,17 @@ import { useDataContext } from '../Context/GeneralContext';
 
 const Button = (props) => {
 
-    const { addToCart, handleRemoveItem } = useDataContext()
+    const { functions } = useDataContext()
 
     const buttonPay =
         <button onClick={() => {
-            addToCart(props.itemCart)
+            functions.addToCart(props.itemCart)
         }} className={props.className}>
             {props.children}
         </button>
 
     const buttonRemove =
-        <button onClick={() => handleRemoveItem(props.product)}
+        <button onClick={() => functions.handleRemoveItem(props.product)}
             className={props.className}>
             {props.children}
         </button>

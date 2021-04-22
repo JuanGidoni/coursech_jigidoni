@@ -9,7 +9,7 @@ const app = firebase.initializeApp({
         messagingSenderId: process.env.REACT_APP_messagingSenderId,
         appId: process.env.REACT_APP_appId
 })
-export const getFirebase = () => app
+export const getFirebase = firebase
 export const getFirestore = firebase.firestore(app)
 
 export default app

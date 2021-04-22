@@ -2,6 +2,7 @@ import '../styles/Card.css'
 // import Link from '../Link'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { useDataContext } from '../Context/GeneralContext'
 
 const Card = ({
   image,
@@ -12,18 +13,7 @@ const Card = ({
   free_shipping
 }) => {
 
-  function formatString(text, length) {
-    if (text == null) {
-      return "";
-    }
-    if (text.length <= length) {
-      return text;
-    }
-    text = text.substring(0, length);
-    let last = text.lastIndexOf(" ");
-    text = text.substring(0, last);
-    return text + "...";
-  }
+  const { functions } = useDataContext()
 
   const Image = image ? image : null
   return (
@@ -39,7 +29,7 @@ const Card = ({
           </div>
         </div>
           <div className="d-flex flex-column align-items-center justify-content-end h-100">
-            <h2 className="text-info p-0 m-0">{formatString(title, 35)}</h2>
+            <h2 className="text-info p-0 m-0">{functions.formatString(title, 25)}</h2>
             {free_shipping ? <p className="small text-muted">Envio Grátis</p> : <p className="small text-muted">Envio a cargo del comprador</p>}
             <div className="d-flex flex-column justify-content-center align-items-center pb-3">
               <span className="badge badge-info badge-pill flex-fill mb-3 p-2">{available_quantity} in stock</span>

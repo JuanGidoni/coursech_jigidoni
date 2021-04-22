@@ -3,11 +3,11 @@ import { useDataContext } from '../../Context/GeneralContext'
 
 const MultiCategory = () => {
 
-    const { categories } = useDataContext()
+    const { states } =  useDataContext()
     return (
         <div className="row w-100">
             {
-                categories && categories.length > 0 ? categories.map(
+                states.categories && states.categories.length > 0 ? states.categories.map(
                     (v) => (
                         <Link to={`/category/${v.id}`}>
                             {v.name}

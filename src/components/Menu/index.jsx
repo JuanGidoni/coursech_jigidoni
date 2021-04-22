@@ -6,7 +6,7 @@ import { useDataContext } from '../Context/GeneralContext';
 
 const Menu = () => {
 
-    const { total, categories, totalItems, orders } = useDataContext()
+    const { states } = useDataContext()
 
     return (
         <div className="pb-5">
@@ -28,7 +28,7 @@ const Menu = () => {
                     <Nav className="ml-auto">
                         <Link to="/" className="nav-link">Home</Link>
                         <NavDropdown title="Categories" id="basic-nav-dropdown" className="mr-0 mr-md-2 mb-2 mb-md-0">
-                            {categories && categories.length > 0 ? categories.map(
+                            {states.categories && states.categories.length > 0 ? states.categories.map(
                                 (v, i) => (
                                     <Link to={`/category/${v.id}`} className="dropdown-item" key={i}>
                                         {v.item.name.charAt(0).toUpperCase() + v.item.name.slice(1)}
@@ -38,19 +38,19 @@ const Menu = () => {
                         </NavDropdown>
                         <Link to="/orders" className="text-success text-decoration-none">
                             <Button variant="outline-success mr-2" className="d-flex flex-fill w-100 w-md-auto mb-2 mb-md-0">
-                                {orders && orders.length}
+                                {states.orders && states.orders.length}
                             <FaShoppingBag className="ml-2" />
                             </Button>
                         </Link>
                         <Link to="/cart" className="text-success text-decoration-none">
                             <Button variant="outline-success mr-2" className="d-flex flex-fill w-100 w-md-auto mb-2 mb-md-0">
-                                {totalItems}
+                                {states.totalItems}
                                 <FaCartPlus className="ml-2" />
                             </Button>
                         </Link>
 
                         <Button disabled variant="none mr-2" className="d-flex flex-fill text-white">
-                            {total}
+                            {states.total}
                             <FaDollarSign className="ml-2" />
                         </Button>
                     </Nav>
