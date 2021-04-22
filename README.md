@@ -13,7 +13,7 @@ This repository is used for learning purposes. Currently studying at CoderHouse:
 - [Creating the order](https://i.gyazo.com/b738067c535289ecf241e3d5b6522f0b.mp4)
 - [Filtering by category & orders list](https://i.gyazo.com/8ca917c97dcae2e513e1d2d3c2f0b44a.mp4)
 
-To run this project use:
+### To run this project use:
 
 `yarn install` or `npm install`
 
