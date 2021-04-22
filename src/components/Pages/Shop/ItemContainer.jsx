@@ -9,6 +9,7 @@ const ItemContainer = ({
     title,
     price,
     available_quantity,
+    description,
     free_shipping,
     qty,
     setQty,
@@ -20,7 +21,8 @@ const ItemContainer = ({
             <div className="list-group-item list-group-item-action">
                 <div className="d-flex flex-fill h-100 align-items-center justify-content-center">
                     <div className="item-detail w-100">
-                        {title}
+                        <h2 className="text-info p-0 m-0">{title}</h2>
+                        <p className="text-muted mb-1">{description}</p>
                         {free_shipping ? <p>Envio Grátis</p> : <p className="small text-muted">Envio a cargo del comprador</p>}
                         <div className="d-flex w-50 justify-content-center align-items-end">
                             <span className="badge badge-info badge-pill flex-fill">{available_quantity} in stock</span>

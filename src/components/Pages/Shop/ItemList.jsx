@@ -44,6 +44,7 @@ const ItemList = () => {
                                 id={v.id}
                                 image={v.item.img}
                                 available_quantity={v.item.stock}
+                                description={v.item.description}
                                 free_shipping={v.item.free_shipping}
                                 price={v.item.price}
                                 title={functions.formatString(v.item.title, 35)}
