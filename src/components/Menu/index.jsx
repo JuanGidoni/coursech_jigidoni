@@ -62,8 +62,7 @@ const Menu = () => {
                             {total}
                             <FaDollarSign className="ml-2" />
                         </Button>
-                        <FormControl onKeyDown={(e) => handleEnter(e, e.target.value)} className="form-control" />
-                    </Nav>
+                        </Nav>
                 </Navbar.Collapse>
             </Navbar>
         </div>
