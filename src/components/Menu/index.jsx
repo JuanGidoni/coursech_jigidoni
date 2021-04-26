@@ -1,21 +1,13 @@
 import { FaCartPlus, FaDollarSign, FaShoppingBag } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, Button, NavDropdown, FormControl } from 'react-bootstrap'
+import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap'
 import logo from '../assets/logo.svg';
 import { useDataContext } from '../Context/DataContext';
 import { useCartContext } from '../Context/CartContext';
-import { useHistory } from 'react-router-dom'
 
 const Menu = () => {
-    const history = useHistory()
     const { categories } = useDataContext()
     const { total, totalItems, orders } = useCartContext()
-
-    const handleEnter = (e, value) => {
-        if (e.key === "Enter") {
-            history.push('/search/'+value)
-        }
-    }
 
     return (
         <div className="pb-5">
