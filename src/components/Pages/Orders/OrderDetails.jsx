@@ -1,4 +1,4 @@
-const OrderBox = ({ items, buyer, date, total, id }) => {
+const OrderDetails = ({ items, buyer, date, total, id }) => {
     return (
         <div className="d-flex justify-content-center align-items-center p-2">
             <div className="d-flex flex-column justify-content-center align-items-start w-100 bg-dark h-100 p-5 shadow">
@@ -27,9 +27,15 @@ const OrderBox = ({ items, buyer, date, total, id }) => {
                         Date: {date.toDate().toDateString()}
                     </div>
                 </div>
+                <div>
+                {items && items.length > 0 ? items.map(
+                    (v) => <div key={v.id} className="items"> {v.title} </div>
+                ) : 'No items'
+                }
+                </div>
             </div>
         </div>
     )
 }
 
-export default OrderBox
+export default OrderDetails

@@ -1,12 +1,21 @@
 import { FaCartPlus, FaDollarSign, FaShoppingBag } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav, Button, NavDropdown, FormControl } from 'react-bootstrap'
 import logo from '../assets/logo.svg';
-import { useDataContext } from '../Context/GeneralContext';
+import { useDataContext } from '../Context/DataContext';
+import { useCartContext } from '../Context/CartContext';
+import { useHistory } from 'react-router-dom'
 
 const Menu = () => {
+    const history = useHistory()
+    const { categories } = useDataContext()
+    const { total, totalItems, orders } = useCartContext()
 
-    const { states } = useDataContext()
+    const handleEnter = (e, value) => {
+        if (e.key === "Enter") {
+            history.push('/search/'+value)
+        }
+    }
 
     return (
         <div className="pb-5">
@@ -28,7 +37,7 @@ const Menu = () => {
                     <Nav className="ml-auto">
                         <Link to="/" className="nav-link">Home</Link>
                         <NavDropdown title="Categories" id="basic-nav-dropdown" className="mr-0 mr-md-2 mb-2 mb-md-0">
-                            {states.categories && states.categories.length > 0 ? states.categories.map(
+                            {categories && categories.length > 0 ? categories.map(
                                 (v, i) => (
                                     <Link to={`/category/${v.id}`} className="dropdown-item" key={i}>
                                         {v.item.name.charAt(0).toUpperCase() + v.item.name.slice(1)}
@@ -38,21 +47,22 @@ const Menu = () => {
                         </NavDropdown>
                         <Link to="/orders" className="text-success text-decoration-none mr-0 mr-1">
                             <Button variant="outline-success mr-2" className="d-flex flex-fill w-100 w-md-auto mb-2 mb-md-0">
-                                {states.orders && states.orders.length}
+                                {orders && orders.length}
                             <FaShoppingBag className="ml-2" />
                             </Button>
                         </Link>
                         <Link to="/cart" className="text-success text-decoration-none mr-0 mr-1">
                             <Button variant="outline-success mr-2" className="d-flex flex-fill w-100 w-md-auto mb-2 mb-md-0">
-                                {states.totalItems}
+                                {totalItems}
                                 <FaCartPlus className="ml-2" />
                             </Button>
                         </Link>
 
                         <Button disabled variant="none mr-2" className="d-flex flex-fill text-white">
-                            {states.total}
+                            {total}
                             <FaDollarSign className="ml-2" />
                         </Button>
+                        <FormControl onKeyDown={(e) => handleEnter(e, e.target.value)} className="form-control" />
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

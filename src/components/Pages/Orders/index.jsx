@@ -1,17 +1,17 @@
-import { useDataContext } from '../../Context/GeneralContext'
-import OrderBox from './OrderBox'
+import { useCartContext } from '../../Context/CartContext'
 import { Link } from 'react-router-dom'
+import { FaFileAlt } from 'react-icons/fa'
 
 const OrdersList = () => {
-    const { states } = useDataContext()
+    const { orders } = useCartContext()
 
     return (
         <div className="row">
-            {states.orders && states.orders.length > 0 ?
-                states.orders.map(
+            {orders && orders.length > 0 ?
+                orders.map(
                     (v, i) => (
-                        <Link key={i} to={`/orders/${v.id}`} className="col-4 text-decoration-none" >
-                            <OrderBox items={v.order.items} buyer={v.order.buyer} date={v.order.date} total={v.order.total} id={v.id} />
+                        <Link key={i} to={`/orders/${v.id}`} className="col-12 col-md-6 col-lg-4 text-decoration-none mb-2 ml-0 pl-0 pr-2" >
+                            <div className="p-5 text-center b-1">Order <FaFileAlt /> <br /> {v.id} </div>
                         </Link>
                     )
                 ) : 'No se encontraron ordenes.'}

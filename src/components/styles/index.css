@@ -20,3 +20,9 @@ code {
   align-items: center;
   justify-content: center;
 }
+.text-decoration-none {
+  text-decoration: none !important;
+}
+.text-decoration-none:hover {
+  text-decoration: none !important;
+}

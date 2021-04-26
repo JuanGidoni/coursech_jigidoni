@@ -68,4 +68,13 @@ then...
 - You can `remove` products from the cart (checkout page)
 - You can view a `all` orders list (because in this version we don't have a user system)
 
+### What I do in this project?
+
+- Used `useContext`, `useEffect` & `useState`.
+- Used `Firebase`. Categories (1 time), Shop (all products 1 time), Item (1 time x item)
+- Added AppLoader & LocalLoaders to simulate data loading.
+- Added `DropdownList` for categories
+- Added `Orders` List to know if you place an order `after submiting` a checkout (form cart)
+- If the `stock > 0` stock avaliable, else `no stock` (implemented and `disabled` purchase btns)
+
 ##### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
